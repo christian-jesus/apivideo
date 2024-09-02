@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Videos</title>
+</head>
+<body>
+    <h1>Videos</h1>
+    {% if videos %}
+        <ul>
+            {% for video in videos %}
+                <li>
+                    <h2>{{ video.title }}</h2>
+                    <p>{{ video.description }}</p>
+                    <video width="320" height="240" controls>
+                        {% if video.url %}
+                            <source src="{{ video.url }}" type="video/mp4">
+                        {% else %}
+                            <source src="{{ url_for('get_video_content', video_id=video._id) }}" type="video/mp4">
+                        {% endif %}
+                    </video>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No videos found.</p>
+    {% endif %}
+</body>
+</html>
